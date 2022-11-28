@@ -1,11 +1,11 @@
-.list {
+@use '../../styles/colors';
+
+.Header {
   display: flex;
-}
+  padding: 21px 50px 21px 21px;
+  background: colors.$dark;
 
-.item {
-  margin-right: 20px;
-
-  &:last-child {
-    margin-right: 0;
+  &__menu {
+    margin-left: auto;
   }
 }
