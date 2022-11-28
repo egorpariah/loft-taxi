@@ -3,9 +3,12 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent, getByTestId } from '@testing-library/react';
 import App from './App';
 import { AuthProvider } from './context/AuthContext';
+import mapboxgl from 'mapbox-gl';
 
-jest.mock('./pages/Order.jsx', () => () => <div>Заказ</div>);
-jest.mock('./pages/Profile', () => () => <div>Профиль</div>);
+mapboxgl.Map = jest.fn();
+
+// jest.mock('./pages/Order.jsx', () => () => <div>Заказ</div>);
+// jest.mock('./pages/Profile', () => () => <div>Профиль</div>);
 
 describe('App', () => {
   it('should renders correctly', () => {
