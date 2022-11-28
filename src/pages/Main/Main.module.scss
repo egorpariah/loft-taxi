@@ -1,0 +1,15 @@
+.Main {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+
+  &__container {
+    position: relative;
+  }
+
+  &__section {
+    position: absolute;
+    top: 10px;
+  }
+}

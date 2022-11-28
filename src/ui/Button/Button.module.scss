@@ -1,0 +1,12 @@
+@use '../../styles/colors';
+
+.Button {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  max-width: 355px;
+  background-color: colors.$primary;
+  height: 61px;
+  padding: 16px;
+  border-radius: 32px;
+  width: 100%;
+}

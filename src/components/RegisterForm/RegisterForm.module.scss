@@ -1,0 +1,51 @@
+@use '../../styles/colors';
+
+.RegisterForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  &__header {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 55px;
+  }
+
+  &__inputItem {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 26px;
+
+    &--last {
+      margin-bottom: 48px;
+    }
+  }
+
+  &__label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  &__pass {
+    margin-bottom: 12px;
+  }
+
+  &__forget {
+    align-self: flex-end;
+    margin-bottom: 20px;
+
+    &:hover {
+      color: colors.$primary;
+    }
+  }
+
+  &__footer {
+    color: colors.$gray;
+  }
+
+  &__button {
+    margin-bottom: 33px;
+  }
+}

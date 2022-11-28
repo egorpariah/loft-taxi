@@ -1,0 +1,26 @@
+.FullLogo {
+  display: flex;
+  align-items: center;
+
+  &__logo {
+    width: 60px;
+    height: 60px;
+    margin-right: 16px;
+  }
+
+  &__text {
+    width: 196px;
+    height: 25px;
+  }
+
+  &--vertical {
+    flex-direction: column;
+
+    .FullLogo__logo {
+      width: 136px;
+      height: 136px;
+      margin-right: 0;
+      margin-bottom: 27px;
+    }
+  }
+}

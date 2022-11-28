@@ -1,0 +1,24 @@
+@use '../../styles/colors';
+
+.Auth {
+  display: flex;
+  height: 100vh;
+
+  &__logoWrapper {
+    background: colors.$dark;
+    width: 34%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__modalWrapper {
+    background: url('../../assets/images/map.png') center center / cover
+      no-repeat;
+    width: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 24px;
+  }
+}
