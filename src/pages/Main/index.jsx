@@ -5,8 +5,7 @@ import Header from '../../components/Header';
 import style from './Main.module.scss';
 
 export default function Main() {
-  const location = useLocation();
-  const path = location.pathname;
+  const path = useLocation().pathname;
 
   return (
     <div className={style.Main}>

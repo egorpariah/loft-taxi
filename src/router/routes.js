@@ -19,6 +19,10 @@ export const privateRoutes = [
     path: '/registration',
     element: <Navigate to='/profile' />,
   },
+  {
+    path: '/*',
+    element: <Navigate to='/order' />,
+  },
 ];
 
 export const publicRoutes = [

@@ -1,21 +1,30 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import React from 'react';
 import { Button } from '../../ui';
 import { Link as RouterLink } from 'react-router-dom';
 import style from './RegisterForm.module.scss';
 import { Input, Link } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { registerRequest } from '../../store/slices/authSlice';
 
 export default function RegisterForm() {
-  const { login } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const register = e => {
+    e.preventDefault();
+    const { email, pass, name } = e.target;
+    const user = {
+      email: email.value,
+      password: pass.value,
+      name: name.value,
+      surname: 'Doe',
+    };
+    dispatch(registerRequest(user));
+  };
 
   return (
     <form
       data-testid='register-form'
       className={style.RegisterForm}
-      onSubmit={e => {
-        e.preventDefault();
-        login('test@test.com', '1234');
-      }}
+      onSubmit={register}
     >
       <h2 className={style.RegisterForm__header}>Регистрация</h2>
       <div className={style.RegisterForm__inputItem}>
@@ -43,7 +52,7 @@ export default function RegisterForm() {
           type='text'
           id='name'
           name='name'
-          placeholder='Петр Александрович'
+          placeholder='Петр Иванов'
         />
       </div>
       <div

@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import { Link } from '@mui/material';
-import { AuthContext } from '../../context/AuthContext';
 import style from './Menu.module.scss';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/slices/authSlice';
 
 export default function Menu({ className }) {
-  const { logout } = useContext(AuthContext);
-  const unauthenticate = () => {
-    logout();
+  const dispatch = useDispatch();
+
+  const unauthenticate = e => {
+    e.preventDefault();
+    dispatch(logout());
   };
 
   const NavLink = React.forwardRef((props, ref) => {

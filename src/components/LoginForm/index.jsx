@@ -1,17 +1,19 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context';
+import React from 'react';
 import { Button } from '../../ui';
 import { Link as RouterLink } from 'react-router-dom';
 import style from './LoginForm.module.scss';
 import { Input, Link } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { authRequest } from '../../store/slices/authSlice';
 
 export default function LoginForm() {
-  const { login } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const authenticate = e => {
     e.preventDefault();
 
     const { email, pass } = e.target;
-    login(email.value, pass.value);
+    const user = { email: email.value, password: pass.value };
+    dispatch(authRequest(user));
   };
 
   return (
