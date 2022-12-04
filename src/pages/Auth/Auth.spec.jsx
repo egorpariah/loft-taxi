@@ -1,30 +1,40 @@
 import React from 'react';
 import Auth from '.';
-import { MemoryRouter, useLocation } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { AuthProvider } from '../../context/AuthContext';
+import { Provider } from 'react-redux';
 
 describe('Auth', () => {
   it('should render correctly', () => {
+    const mockStore = {
+      getState: () => ({ user: { isLoggedIn: false } }),
+      subscribe: () => {},
+      dispatch: () => {},
+    };
     const { container } = render(
-      <AuthProvider>
+      <Provider store={mockStore}>
         <MemoryRouter initialEntries={['/login']}>
           <Auth />
         </MemoryRouter>
-      </AuthProvider>
+      </Provider>
     );
     console.log(container);
     expect(screen.getByText('Забыли пароль?')).toBeInTheDocument();
   });
 
   it('should route to Registration page', () => {
+    const mockStore = {
+      getState: () => ({ user: { isLoggedIn: false } }),
+      subscribe: () => {},
+      dispatch: () => {},
+    };
     render(
-      <AuthProvider>
+      <Provider store={mockStore}>
         <MemoryRouter initialEntries={['/login']}>
           <Auth />
         </MemoryRouter>
-      </AuthProvider>
+      </Provider>
     );
 
     fireEvent.click(screen.getByText('Регистрация'));
@@ -33,12 +43,17 @@ describe('Auth', () => {
   });
 
   it('should route to Login page', () => {
+    const mockStore = {
+      getState: () => ({ user: { isLoggedIn: false } }),
+      subscribe: () => {},
+      dispatch: () => {},
+    };
     render(
-      <AuthProvider>
+      <Provider store={mockStore}>
         <MemoryRouter initialEntries={['/login']}>
           <Auth />
         </MemoryRouter>
-      </AuthProvider>
+      </Provider>
     );
 
     fireEvent.click(screen.getByText('Регистрация'));

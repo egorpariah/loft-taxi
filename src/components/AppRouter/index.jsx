@@ -4,7 +4,7 @@ import { privateRoutes, publicRoutes } from '../../router/routes';
 import { useSelector } from 'react-redux';
 
 export default function AppRouter() {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
   return isLoggedIn ? (
     <Routes>
       {privateRoutes.map(route => (

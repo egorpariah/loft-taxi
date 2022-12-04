@@ -4,27 +4,27 @@ import { Link as RouterLink } from 'react-router-dom';
 import style from './RegisterForm.module.scss';
 import { Input, Link } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { registerRequest } from '../../store/slices/authSlice';
+import { register } from '../../store/thunk/register';
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
-  const register = e => {
+  const signin = e => {
     e.preventDefault();
     const { email, pass, name } = e.target;
     const user = {
       email: email.value,
       password: pass.value,
       name: name.value,
-      surname: 'Doe',
+      surname: 'Доу',
     };
-    dispatch(registerRequest(user));
+    dispatch(register(user));
   };
 
   return (
     <form
       data-testid='register-form'
       className={style.RegisterForm}
-      onSubmit={register}
+      onSubmit={signin}
     >
       <h2 className={style.RegisterForm__header}>Регистрация</h2>
       <div className={style.RegisterForm__inputItem}>

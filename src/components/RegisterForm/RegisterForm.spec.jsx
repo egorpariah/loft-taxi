@@ -1,17 +1,22 @@
 import React from 'react';
 import RegisterForm from '.';
 import { MemoryRouter } from 'react-router-dom';
-import { AuthProvider } from '../../context/AuthContext';
+import { Provider } from 'react-redux';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 describe('RegisterForm', () => {
   it('should render correctly', () => {
+    const mockStore = {
+      getState: () => ({ user: { isLoggedIn: false } }),
+      subscribe: () => {},
+      dispatch: () => {},
+    };
     render(
       <MemoryRouter>
-        <AuthProvider>
+        <Provider store={mockStore}>
           <RegisterForm />
-        </AuthProvider>
+        </Provider>
       </MemoryRouter>
     );
 
@@ -28,31 +33,5 @@ describe('RegisterForm', () => {
     expect(screen.getByText('Зарегистрироваться')).toBeInTheDocument();
     expect(screen.getByText('Уже зарегестрированны?')).toBeInTheDocument();
     expect(screen.getByText('Войти')).toBeInTheDocument();
-  });
-
-  it('should register correctly', async () => {
-    render(
-      <MemoryRouter>
-        <AuthProvider>
-          <RegisterForm />
-        </AuthProvider>
-      </MemoryRouter>
-    );
-
-    expect(screen.getAllByText('Войти')).toBeTruthy();
-
-    fireEvent.submit(screen.getByTestId('register-form'), {
-      target: {
-        email: {
-          value: 'test@test.com',
-        },
-        name: {
-          value: 'Федор Иванов',
-        },
-        pass: {
-          value: '1234',
-        },
-      },
-    });
   });
 });

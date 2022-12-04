@@ -1,3 +1,5 @@
+@use '../../styles/colors';
+
 .Main {
   width: 100vw;
   height: 100vh;
@@ -6,10 +8,22 @@
 
   &__container {
     position: relative;
+
+    &--overlay {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(colors.$dark, 0.5);
+      }
+    }
   }
 
   &__section {
     position: absolute;
-    top: 10px;
+    top: 0px;
   }
 }
