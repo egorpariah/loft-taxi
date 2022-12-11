@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
 import { privateRoutes, publicRoutes } from '../../router/routes';
+import { useSelector } from 'react-redux';
 
 export default function AppRouter() {
-  const { isLoggedIn } = useContext(AuthContext);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
   return isLoggedIn ? (
     <Routes>
       {privateRoutes.map(route => (

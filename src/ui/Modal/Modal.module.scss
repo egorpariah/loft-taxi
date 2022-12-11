@@ -6,5 +6,9 @@
   justify-content: center;
   align-items: center;
   box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
-  width: 580px;
+  // width: 580px;
+
+  &--inner {
+    border-radius: 10px;
+  }
 }

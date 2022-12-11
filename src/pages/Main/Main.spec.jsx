@@ -1,19 +1,25 @@
 import React from 'react';
 import Main from '.';
 import '@testing-library/jest-dom';
-import { AuthProvider } from '../../context/AuthContext';
-import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('../../components/Map', () => () => <div>Mapbox</div>);
 
 describe('Main', () => {
   it('should renders correctly', () => {
+    const mockStore = {
+      getState: () => ({ user: { isLoggedIn: true } }),
+      subscribe: () => {},
+      dispatch: () => {},
+    };
     render(
       <MemoryRouter initialEntries={['/order']}>
-        <AuthProvider>
+        <Provider store={mockStore}>
           <Main />
-        </AuthProvider>
+        </Provider>
       </MemoryRouter>
     );
     expect(screen.getByText('Карта')).toBeInTheDocument();

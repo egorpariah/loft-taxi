@@ -1,17 +1,22 @@
 import React from 'react';
 import Menu from '.';
-import { AuthProvider } from '../../context/AuthContext';
+import { Provider } from 'react-redux';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Menu', () => {
   it('should renders correctly', () => {
+    const mockStore = {
+      getState: () => {},
+      subscribe: () => {},
+      dispatch: () => {},
+    };
     render(
       <MemoryRouter>
-        <AuthProvider>
+        <Provider store={mockStore}>
           <Menu />
-        </AuthProvider>
+        </Provider>
       </MemoryRouter>
     );
 

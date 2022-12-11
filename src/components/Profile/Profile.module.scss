@@ -1,2 +1,130 @@
+@use '../../styles/colors';
+
 .Profile {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(colors.$dark, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__modal {
+    padding: 60px 44px;
+    width: 888px;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__header {
+    font-weight: bold;
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    color: colors.$gray;
+    font-size: 18px;
+    margin-bottom: 50px;
+  }
+
+  &__container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  &__inputs {
+    width: 354px;
+  }
+
+  &__inputsGroup {
+    .Profile__inputItem {
+      margin-bottom: 0;
+      margin-right: 35px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__inputItem {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 26px;
+  }
+
+  &__input input {
+    font-weight: bold;
+  }
+
+  &__label {
+    margin-bottom: 6px;
+    color: colors.$gray;
+  }
+
+  &__card {
+    position: relative;
+    width: 347px;
+    height: 182px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
+    padding: 16px 16px 16px 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    position: absolute;
+    top: 16px;
+    left: 28px;
+    width: 33px;
+    height: 33px;
+  }
+
+  &__chip {
+    position: absolute;
+    bottom: 16px;
+    left: 28px;
+  }
+
+  &__masterCard {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  &__expireDate {
+    position: absolute;
+    top: 28px;
+    right: 16px;
+    font-size: 12px;
+  }
+
+  &__cardNumber {
+    font-size: 21px;
+  }
+
+  &__inputsGroup {
+    display: flex;
+  }
+
+  &__close {
+    margin-top: -20px;
+  }
 }

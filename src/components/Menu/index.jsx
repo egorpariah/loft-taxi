@@ -1,14 +1,18 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import { Link } from '@mui/material';
-import { AuthContext } from '../../context/AuthContext';
 import style from './Menu.module.scss';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/slices/userSlice';
 
 export default function Menu({ className }) {
-  const { logout } = useContext(AuthContext);
-  const unauthenticate = () => {
-    logout();
+  const dispatch = useDispatch();
+
+  const unauthenticate = e => {
+    e.preventDefault();
+    dispatch(logout());
+    localStorage.clear();
   };
 
   const NavLink = React.forwardRef((props, ref) => {
@@ -28,7 +32,10 @@ export default function Menu({ className }) {
   return (
     <nav className={`${className} ${style.Menu}`}>
       <ul className={style.Menu__list}>
-        <li className={style.Menu__item}>
+        <li
+          onClick={e => e.stopPropagation()}
+          className={style.Menu__item}
+        >
           <Link
             variant='menu'
             underline='none'
@@ -38,7 +45,10 @@ export default function Menu({ className }) {
             Карта
           </Link>
         </li>
-        <li className={style.Menu__item}>
+        <li
+          onClick={e => e.stopPropagation()}
+          className={style.Menu__item}
+        >
           <Link
             variant='menu'
             underline='none'
@@ -48,7 +58,10 @@ export default function Menu({ className }) {
             Профиль
           </Link>
         </li>
-        <li className={style.Menu__item}>
+        <li
+          onClick={e => e.stopPropagation()}
+          className={style.Menu__item}
+        >
           <Link
             variant='menu'
             underline='none'

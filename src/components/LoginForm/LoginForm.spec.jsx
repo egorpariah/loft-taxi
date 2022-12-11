@@ -1,17 +1,22 @@
 import React from 'react';
 import LoginForm from '.';
 import { MemoryRouter } from 'react-router-dom';
-import { AuthProvider } from '../../context/AuthContext';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 
 describe('LoginForm', () => {
   it('should render correctly', () => {
+    const mockStore = {
+      getState: () => ({ user: { isLoggedIn: false } }),
+      subscribe: () => {},
+      dispatch: () => {},
+    };
     render(
       <MemoryRouter>
-        <AuthProvider>
+        <Provider store={mockStore}>
           <LoginForm />
-        </AuthProvider>
+        </Provider>
       </MemoryRouter>
     );
 
@@ -21,28 +26,5 @@ describe('LoginForm', () => {
     expect(screen.getByText('Регистрация')).toBeInTheDocument();
     expect(screen.getByText('Новый пользователь?')).toBeInTheDocument();
     expect(screen.getByText('Регистрация')).toBeInTheDocument();
-  });
-
-  it('should authenticate correctly', async () => {
-    render(
-      <MemoryRouter>
-        <AuthProvider>
-          <LoginForm />
-        </AuthProvider>
-      </MemoryRouter>
-    );
-
-    expect(screen.getAllByText('Войти')).toBeTruthy();
-
-    fireEvent.submit(screen.getByTestId('login-form'), {
-      target: {
-        email: {
-          value: 'test@test.com',
-        },
-        pass: {
-          value: '1234',
-        },
-      },
-    });
   });
 });

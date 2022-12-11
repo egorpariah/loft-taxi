@@ -4,7 +4,10 @@ import style from './Modal.module.scss';
 
 export default function Modal({ className, children }) {
   return (
-    <div className={className ? `${className} ${style.Modal}` : style.Modal}>
+    <div
+      onClick={e => e.stopPropagation()}
+      className={className ? `${className} ${style.Modal}` : style.Modal}
+    >
       {children}
     </div>
   );
