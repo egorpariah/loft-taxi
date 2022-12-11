@@ -22,7 +22,11 @@ export default function Main() {
         ].join('')}
       >
         <Map />
-        {path === '/order' && <Order className={style.Main__section} />}
+        {path === '/order' && (
+          <Order
+            className={`${style.Main__section} ${style['Main__section--order']}`}
+          />
+        )}
       </main>
       {path === '/profile' && <Profile className={style.Main__section} />}
     </div>

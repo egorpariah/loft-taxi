@@ -18,5 +18,13 @@ export const theme = createTheme({
         },
       ],
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontSize: 18,
+          height: 60,
+        },
+      },
+    },
   },
 });

@@ -7,9 +7,8 @@ import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 import { ReactComponent as Chip } from '../../assets/svg/chip.svg';
 import { ReactComponent as MasterCard } from '../../assets/svg/master-card.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { profileSetCard } from '../../store/thunk';
 import { useNavigate } from 'react-router-dom';
-import { reset } from '../../store/slices/userSlice';
+import { reset, setProfileCardRequest } from '../../store/slices/userSlice';
 
 export default function Profile({ className }) {
   const [card, setCard] = useState({
@@ -82,13 +81,16 @@ export default function Profile({ className }) {
       token: authToken,
     };
 
-    dispatch(profileSetCard(profile));
+    dispatch(setProfileCardRequest(profile));
   };
 
   const navigate = useNavigate();
 
   return (
-    <Modal className={style.Profile__modal}>
+    <Modal
+      className={style.Profile__modal}
+      inner={true}
+    >
       <h2 className={style.Profile__header}>Профиль</h2>
       <p className={style.Profile__subtitle}>
         {isSuccess

@@ -25,5 +25,10 @@
   &__section {
     position: absolute;
     top: 0px;
+
+    &--order {
+      top: 60px;
+      left: 60px;
+    }
   }
 }

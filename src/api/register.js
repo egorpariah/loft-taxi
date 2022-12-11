@@ -1,4 +1,4 @@
-export const registerRequest = async user => {
+export const register = async user => {
   return fetch(`https://loft-taxi.glitch.me/register`, {
     method: 'POST',
     headers: {

@@ -2,11 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './Modal.module.scss';
 
-export default function Modal({ className, children }) {
+export default function Modal({ className, inner, children }) {
+  const classes = [style.Modal];
+  if (className) {
+    classes.push(className);
+  }
+  if (inner) {
+    classes.push(style['Modal--inner']);
+  }
+
   return (
     <div
       onClick={e => e.stopPropagation()}
-      className={className ? `${className} ${style.Modal}` : style.Modal}
+      className={classes.join(' ')}
     >
       {children}
     </div>

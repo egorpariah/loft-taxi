@@ -22,19 +22,17 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    registerRequest: state => {
+      state.isLoading = true;
+      state.error = null;
+    },
     authRequest: state => {
       state.isLoading = true;
       state.error = null;
-      state.isSuccess = false;
     },
     authSuccess: (state, action) => {
       state.isLoggedIn = true;
       state.token = action.payload;
-      state.isLoading = false;
-      state.isSuccess = true;
-    },
-    authError: (state, action) => {
-      state.error = action.payload;
       state.isLoading = false;
     },
     setProfileCardRequest: state => {
@@ -47,21 +45,15 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
     },
-    setProfileCardError: (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
     getProfileCardRequest: state => {
       state.isLoading = true;
       state.error = null;
-      state.isSuccess = false;
     },
     getProfileCardSuccess: (state, action) => {
       state.profile.card = action.payload;
       state.isLoading = false;
-      state.isSuccess = true;
     },
-    getProfileCardError: (state, action) => {
+    requestError: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
     },
@@ -79,15 +71,14 @@ export const userSlice = createSlice({
 });
 
 export const {
+  registerRequest,
   authRequest,
   authSuccess,
-  authError,
   setProfileCardRequest,
   setProfileCardSuccess,
-  setProfileCardError,
   getProfileCardRequest,
   getProfileCardSuccess,
-  getProfileCardError,
+  requestError,
   logout,
   reset,
 } = userSlice.actions;
