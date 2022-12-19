@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const orderSlice = createSlice({
-  name: 'user',
+  name: 'order',
   initialState,
   reducers: {
     getAddressListRequest: state => {
