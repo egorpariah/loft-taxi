@@ -7,8 +7,7 @@ import mapboxgl from 'mapbox-gl';
 
 mapboxgl.Map = jest.fn();
 
-jest.mock('./components/Order', () => () => <div>Заказ</div>);
-jest.mock('./components/Profile', () => () => <div>Профиль</div>);
+jest.mock('./pages/Main', () => () => <div>Заказ</div>);
 
 describe('App', () => {
   it('should renders correctly', () => {

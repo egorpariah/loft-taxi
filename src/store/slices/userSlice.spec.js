@@ -1,13 +1,11 @@
 import userReducer, {
   authRequest,
   authSuccess,
-  authError,
   setProfileCardRequest,
   setProfileCardSuccess,
-  setProfileCardError,
   getProfileCardRequest,
   getProfileCardSuccess,
-  getProfileCardError,
+  requestError,
   logout,
   reset,
 } from './userSlice';
@@ -18,7 +16,6 @@ describe('userReducer', () => {
       expect(userReducer({}, authRequest())).toEqual({
         isLoading: true,
         error: null,
-        isSuccess: false,
       });
     });
   });
@@ -29,14 +26,13 @@ describe('userReducer', () => {
         isLoggedIn: true,
         token: '1234',
         isLoading: false,
-        isSuccess: true,
       });
     });
   });
 
-  describe('authError', () => {
+  describe('requestError', () => {
     it('returns error message and isLoading false', () => {
-      expect(userReducer({}, authError('FAIL!'))).toEqual({
+      expect(userReducer({}, requestError('FAIL!'))).toEqual({
         error: 'FAIL!',
         isLoading: false,
       });
@@ -65,21 +61,11 @@ describe('userReducer', () => {
     });
   });
 
-  describe('setProfileCardError', () => {
-    it('returns error message and isLoading false', () => {
-      expect(userReducer({}, setProfileCardError('FAIL!'))).toEqual({
-        error: 'FAIL!',
-        isLoading: false,
-      });
-    });
-  });
-
   describe('getProfileCardRequest', () => {
     it('returns isLoading true', () => {
       expect(userReducer({}, getProfileCardRequest())).toEqual({
         isLoading: true,
         error: null,
-        isSuccess: false,
       });
     });
   });
@@ -90,16 +76,6 @@ describe('userReducer', () => {
         userReducer({ profile: { card: '' } }, getProfileCardSuccess('1234'))
       ).toEqual({
         profile: { card: '1234' },
-        isLoading: false,
-        isSuccess: true,
-      });
-    });
-  });
-
-  describe('getProfileCardError', () => {
-    it('returns error message and isLoading false', () => {
-      expect(userReducer({}, getProfileCardError('FAIL!'))).toEqual({
-        error: 'FAIL!',
         isLoading: false,
       });
     });

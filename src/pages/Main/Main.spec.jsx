@@ -7,11 +7,14 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('../../components/Map', () => () => <div>Mapbox</div>);
+jest.mock('../../components/Order', () => () => <div>Заказ</div>);
 
 describe('Main', () => {
   it('should renders correctly', () => {
     const mockStore = {
-      getState: () => ({ user: { isLoggedIn: true } }),
+      getState: () => ({
+        user: { isLoggedIn: true, profile: {} },
+      }),
       subscribe: () => {},
       dispatch: () => {},
     };

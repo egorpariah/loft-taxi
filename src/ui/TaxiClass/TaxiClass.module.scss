@@ -1,0 +1,66 @@
+@use '../../styles/colors';
+
+.TaxiClass {
+  opacity: 50%;
+  transition: opacity 300ms ease;
+
+  &--active {
+    opacity: 100%;
+  }
+
+  &__modal {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    cursor: pointer;
+    padding: 12px;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__class {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  &__price {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  &__priceTitle {
+    color: colors.$gray;
+    font-size: 11px;
+  }
+
+  &__priceValue {
+    font-size: 24px;
+  }
+
+  &__car {
+    width: 95px;
+    height: 73px;
+    align-self: center;
+
+    &--class-1 {
+      background: url('../../assets/images/class-1.png') center center / contain
+        no-repeat;
+    }
+
+    &--class-2 {
+      background: url('../../assets/images/class-2.png') center center / contain
+        no-repeat;
+    }
+
+    &--class-3 {
+      background: url('../../assets/images/class-3.png') center center / contain
+        no-repeat;
+    }
+  }
+}

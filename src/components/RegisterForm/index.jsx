@@ -4,20 +4,20 @@ import { Link as RouterLink } from 'react-router-dom';
 import style from './RegisterForm.module.scss';
 import { Input, Link } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { register } from '../../store/thunk/register';
+import { registerRequest } from '../../store/slices/userSlice';
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
   const signin = e => {
     e.preventDefault();
-    const { email, pass, name } = e.target;
+    const { email, pass, name, surname } = e.target;
     const user = {
       email: email.value,
       password: pass.value,
       name: name.value,
-      surname: 'Доу',
+      surname: surname.value,
     };
-    dispatch(register(user));
+    dispatch(registerRequest(user));
   };
 
   return (
@@ -39,6 +39,7 @@ export default function RegisterForm() {
           id='email'
           name='email'
           placeholder='mail@mail.ru'
+          required
         />
       </div>
       <div className={style.RegisterForm__inputItem}>
@@ -52,7 +53,15 @@ export default function RegisterForm() {
           type='text'
           id='name'
           name='name'
-          placeholder='Петр Иванов'
+          placeholder='Петр'
+          required
+        />
+        <Input
+          type='text'
+          id='surname'
+          name='surname'
+          placeholder='Иванов'
+          required
         />
       </div>
       <div
@@ -69,6 +78,7 @@ export default function RegisterForm() {
           id='pass'
           name='pass'
           placeholder='*************'
+          required
         />
       </div>
       <Button

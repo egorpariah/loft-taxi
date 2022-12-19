@@ -1,4 +1,4 @@
-export const loginRequest = async user => {
+export const login = async user => {
   return fetch(`https://loft-taxi.glitch.me/auth`, {
     method: 'POST',
     headers: {

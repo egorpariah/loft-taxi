@@ -4,25 +4,27 @@ import { Provider } from 'react-redux';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import mapboxgl from 'mapbox-gl';
 
-mapboxgl.Map = jest.fn();
+jest.mock('../../pages/Main', () => () => <div>Заказ</div>);
+jest.mock('../../pages/Auth', () => () => <div>Логин</div>);
 
 describe('AppRouter', () => {
   it('should render correctly when user is logined', () => {
     const mockStore = {
-      getState: () => ({ user: { isLoggedIn: true } }),
+      getState: () => ({
+        user: { isLoggedIn: true, profile: {} },
+      }),
       subscribe: () => {},
       dispatch: () => {},
     };
-    const { container } = render(
+    render(
       <Provider store={mockStore}>
         <MemoryRouter initialEntries={['/order']}>
           <AppRouter />
         </MemoryRouter>
       </Provider>
     );
-    expect(screen.getByTestId('map')).toBeInTheDocument();
+    expect(screen.getByText('Заказ')).toBeInTheDocument();
   });
 
   it('should render correctly when user is not logined', () => {
@@ -38,6 +40,6 @@ describe('AppRouter', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(screen.getByTestId('login-form')).toBeInTheDocument();
+    expect(screen.getByText('Логин')).toBeInTheDocument();
   });
 });

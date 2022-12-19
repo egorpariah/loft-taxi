@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import style from './LoginForm.module.scss';
 import { Input, Link } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/thunk';
+import { authRequest } from '../../store/slices/userSlice';
 export default function LoginForm() {
   const dispatch = useDispatch();
   const authenticate = e => {
@@ -12,7 +12,7 @@ export default function LoginForm() {
 
     const { email, pass } = e.target;
     const user = { email: email.value, password: pass.value };
-    dispatch(login(user));
+    dispatch(authRequest(user));
   };
 
   return (
