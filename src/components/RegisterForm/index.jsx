@@ -5,17 +5,19 @@ import style from './RegisterForm.module.scss';
 import { Input, Link } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { registerRequest } from '../../store/slices/userSlice';
+import { useForm } from 'react-hook-form';
 
-export default function RegisterForm() {
-  const dispatch = useDispatch();
-  const signin = e => {
-    e.preventDefault();
-    const { email, pass, name, surname } = e.target;
+export default function RegisterForm({ useDispatchHook = useDispatch }) {
+  const dispatch = useDispatchHook();
+  const { register, handleSubmit } = useForm();
+
+  const signin = data => {
+    const { email, pass, name, surname } = data;
     const user = {
-      email: email.value,
-      password: pass.value,
-      name: name.value,
-      surname: surname.value,
+      email: email,
+      password: pass,
+      name: name,
+      surname: surname,
     };
     dispatch(registerRequest(user));
   };
@@ -24,7 +26,7 @@ export default function RegisterForm() {
     <form
       data-testid='register-form'
       className={style.RegisterForm}
-      onSubmit={signin}
+      onSubmit={handleSubmit(signin)}
     >
       <h2 className={style.RegisterForm__header}>Регистрация</h2>
       <div className={style.RegisterForm__inputItem}>
@@ -40,6 +42,7 @@ export default function RegisterForm() {
           name='email'
           placeholder='mail@mail.ru'
           required
+          {...register('email')}
         />
       </div>
       <div className={style.RegisterForm__inputItem}>
@@ -55,6 +58,7 @@ export default function RegisterForm() {
           name='name'
           placeholder='Петр'
           required
+          {...register('name')}
         />
         <Input
           type='text'
@@ -62,6 +66,7 @@ export default function RegisterForm() {
           name='surname'
           placeholder='Иванов'
           required
+          {...register('surname')}
         />
       </div>
       <div
@@ -79,11 +84,13 @@ export default function RegisterForm() {
           name='pass'
           placeholder='*************'
           required
+          {...register('pass')}
         />
       </div>
       <Button
         className={style.RegisterForm__button}
         type='submit'
+        data-testid='submit-button'
       >
         Зарегистрироваться
       </Button>

@@ -10,32 +10,35 @@ import style from './Order.module.scss';
 import { Button, Modal, TaxiClass } from '../../ui';
 import { MenuItem, Select } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
 
-export default function Order({ className }) {
-  const dispatch = useDispatch();
-  const [route, setRoute] = useState({ from: '', to: '' });
+export default function Order({ className, useDispatchHook = useDispatch }) {
+  const dispatch = useDispatchHook();
   const addresses = useSelector(state => state.order.addresses);
   const orderSuccess = useSelector(state => state.order.isSuccess);
   const profile = useSelector(state => state.user.profile);
   const navigate = useNavigate();
   const [activeClass, setActiveClass] = useState('class-1');
+  const { control, watch, setValue, handleSubmit } = useForm();
+  const watchFrom = watch('from');
+  const watchTo = watch('to');
 
   useEffect(() => {
     dispatch(getAddressListRequest());
   }, []);
 
   const restAddresses = useMemo(
-    () => [...addresses].filter(a => a !== route.from && a !== route.to),
-    [addresses, route]
+    () => [...addresses].filter(a => a !== watchFrom && a !== watchTo),
+    [addresses, watchFrom, watchTo]
   );
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
+  const sendOrder = data => {
+    console.log(data);
+    const { from, to } = data;
     dispatch(
       getRouteRequest({
-        address1: route.from,
-        address2: route.to,
+        address1: from,
+        address2: to,
       })
     );
   };
@@ -60,7 +63,8 @@ export default function Order({ className }) {
                 className={style.Order__submit}
                 onClick={() => {
                   dispatch(reset());
-                  setRoute({ from: '', to: '' });
+                  setValue('from', '');
+                  setValue('to', '');
                 }}
               >
                 Сделать новый заказ
@@ -69,45 +73,61 @@ export default function Order({ className }) {
           ) : (
             <form
               className={style.Order__form}
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(sendOrder)}
             >
               <div className={style.Order__routes}>
-                <Select
-                  className={style.Order__route}
-                  variant='standard'
-                  value={route.from}
-                  onChange={e => setRoute({ ...route, from: e.target.value })}
-                  displayEmpty={true}
-                  renderValue={value => (value !== '' ? value : 'Откуда')}
-                  style={{ width: '100%' }}
-                >
-                  {restAddresses.map((a, i) => (
-                    <MenuItem
-                      key={i}
-                      value={a}
+                <Controller
+                  name='from'
+                  control={control}
+                  defaultValue='Откуда'
+                  render={({ field: { onChange, value } }) => (
+                    <Select
+                      inputProps={{ 'data-testid': 'from' }}
+                      className={style.Order__route}
+                      variant='standard'
+                      value={value}
+                      onChange={onChange}
+                      displayEmpty={true}
+                      renderValue={value => (value !== '' ? value : 'Откуда')}
+                      style={{ width: '100%' }}
                     >
-                      {a}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <Select
-                  className={style.Order__route}
-                  variant='standard'
-                  value={route.to}
-                  onChange={e => setRoute({ ...route, to: e.target.value })}
-                  displayEmpty={true}
-                  renderValue={value => (value !== '' ? value : 'Куда')}
-                  style={{ width: '100%' }}
-                >
-                  {restAddresses.map((a, i) => (
-                    <MenuItem
-                      key={i}
-                      value={a}
+                      {restAddresses.map((a, i) => (
+                        <MenuItem
+                          key={i}
+                          value={a}
+                        >
+                          {a}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                />
+                <Controller
+                  name='to'
+                  control={control}
+                  defaultValue='Куда'
+                  render={({ field: { onChange, value } }) => (
+                    <Select
+                      inputProps={{ 'data-testid': 'to' }}
+                      className={style.Order__route}
+                      variant='standard'
+                      value={value}
+                      onChange={onChange}
+                      displayEmpty={true}
+                      renderValue={value => (value !== '' ? value : 'Куда')}
+                      style={{ width: '100%' }}
                     >
-                      {a}
-                    </MenuItem>
-                  ))}
-                </Select>
+                      {restAddresses.map((a, i) => (
+                        <MenuItem
+                          key={i}
+                          value={a}
+                        >
+                          {a}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                />
               </div>
               <Modal className={style.Order__classes}>
                 <ul className={style.Order__classesList}>
@@ -137,6 +157,7 @@ export default function Order({ className }) {
                   />
                 </ul>
                 <Button
+                  data-testid='submit-button'
                   className={style.Order__submit}
                   type='submit'
                 >
